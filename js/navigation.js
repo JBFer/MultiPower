@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
             item.classList.remove('active'); // Ensure only one is active if already set in HTML
         }
 
-        // Fallback for mainMenu.html if currentPage is empty (root) or index.html
-        if ((currentPage === '' || currentPage === 'index.html') && itemPage === 'mainMenu.html') {
+        // Fallback for index.html if currentPage is empty (root) or index.html
+        if ((currentPage === '' || currentPage === 'index.html') && itemPage === 'index.html') {
              item.classList.add('active');
         }
     });
