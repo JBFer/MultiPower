@@ -27,9 +27,9 @@
                 </div>
             </div>
             <div class="main-header">
-                <i class="fas fa-home header-icon"></i>
+                <a href="index.html" class="header-icon-link"><i class="fas fa-home header-icon"></i></a>
                 <h1>Find Charging Stations</h1>
-                <i class="fas fa-user header-icon"></i>
+                <a href="profile.html" class="header-icon-link"><i class="fas fa-user header-icon"></i></a>
             </div>
         </header>
 
@@ -48,12 +48,50 @@
         </div>
 
         <div id="map"></div>
-        
+
         <div class="station-list-container">
             <div class="pull-handle-bar"></div>
-            <h2 id="station-list-title">Nearby Charging Stations</h2>
-            <div id="station-list">
-                <!-- Station items will be injected here by JavaScript -->
+
+            <!-- View for list of stations -->
+            <div id="stationListView">
+                <h2 id="station-list-title">Nearby Charging Stations</h2>
+                <div id="station-list">
+                    <!-- Station items will be injected here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- View for reservation panel (initially hidden) -->
+            <div id="reservationView" class="hidden">
+                <div class="reservation-header">
+                    <button id="backToListBtn" class="back-arrow-btn"><i class="fas fa-arrow-left"></i></button>
+                    <h2 id="reservationStationName">Station Name</h2>
+                </div>
+                <p id="reservationStationAddress" class="station-address-details">Station Address</p>
+
+                <div class="balance-availability-row">
+                    <div class="user-balance-info">
+                        <i class="fas fa-wallet"></i>
+                        <span>324.50€</span>
+                    </div>
+                    <div class="station-availability-info">
+                        <span id="spotsAvailable">2/5</span> Disponível
+                        <span class="availability-dot"></span>
+                    </div>
+                </div>
+
+                <div class="reservation-options">
+                    <input type="text" id="reservationDate" value="April 15, 2024" class="date-picker-input" readonly>
+                    <div class="time-picker-input">
+                        <span id="reservationTime">9:40 AM</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="reservation-fee-info">
+                        Reservation fee:
+                        <span>5€</span>
+                    </div>
+                </div>
+
+                <button id="reserveBtn" class="reserve-button-main">Reserve</button>
             </div>
         </div>
     </div>
@@ -64,7 +102,7 @@
             <i class="fas fa-home"></i>
             <span>Home</span>
         </a>
-        <a href="search.html" class="nav-item">
+        <a href="search.html" class="nav-item active"> <!-- Marked active -->
             <i class="fas fa-search"></i>
             <span>Search</span>
         </a>
