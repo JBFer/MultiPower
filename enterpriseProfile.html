@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Enterprise Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css"> <!-- General styles -->
+    <link rel="stylesheet" href="css/navigation.css">
+    <style>
+        .app-container { padding-bottom: 70px; /* Space for bottom nav */ }
+        .page-header {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #FFF9FF;
+            border-bottom: 1px solid #eee;
+        }
+        .page-header .back-button {
+            font-size: 24px;
+            color: #333;
+            margin-right: 15px;
+            text-decoration: none;
+        }
+        .page-header h1 {
+            font-size: 20px;
+            margin: 0;
+            font-weight: 600;
+        }
+        .main-content { text-align: center; padding: 20px; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Status Bar -->
+        <div class="status-bar-placeholder">
+            <span class="time">9:30</span>
+            <div class="notch-placeholder"></div>
+            <div class="status-icons">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-three-quarters"></i>
+            </div>
+        </div>
+
+        <header class="page-header">
+            <a href="javascript:history.back()" class="back-button"><i class="fas fa-arrow-left"></i></a>
+            <h1 id="enterpriseNameTitle">Enterprise Profile</h1>
+        </header>
+
+        <main class="main-content">
+            <h2 id="enterpriseDetailName">Details for [Enterprise Name]</h2>
+            <p>Statistics, locations, and more about this enterprise will be displayed here.</p>
+            <!-- Placeholder for actual content -->
+            <div style="margin-top: 20px; padding: 15px; background-color: #f0f0f0; border-radius: 8px;">
+                <h4>Price Statistics</h4>
+                <p>Average Price: €0.XX/kWh</p>
+                <p>Peak Price: €0.YY/kWh</p>
+                <p>Off-Peak Price: €0.ZZ/kWh</p>
+            </div>
+            <div style="margin-top: 20px; padding: 15px; background-color: #f0f0f0; border-radius: 8px;">
+                <h4>Locations</h4>
+                <p>Number of stations: NNN</p>
+                <p>Coverage: Regional / National</p>
+            </div>
+        </main>
+
+        <!-- Reusable Bottom Navigation Bar -->
+        <nav class="bottom-nav">
+            <a href="mainMenu.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="search.html" class="nav-item">
+                <i class="fas fa-search"></i>
+                <span>Search</span>
+            </a>
+            <a href="prices.html" class="nav-item"> <!-- Potentially mark active if desired, but this is a sub-page -->
+                <i class="fas fa-tags"></i>
+                <span>Prices</span>
+            </a>
+            <a href="news.html" class="nav-item">
+                <i class="fas fa-newspaper"></i>
+                <span>News</span>
+            </a>
+            <a href="profile.html" class="nav-item">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </nav>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const enterpriseName = params.get('name') || 'Selected Enterprise';
+            document.getElementById('enterpriseNameTitle').textContent = enterpriseName + " Profile";
+            document.getElementById('enterpriseDetailName').textContent = "Details for " + enterpriseName;
+        });
+    </script>
+    <script src="js/navigation.js"></script>
+</body>
+</html>

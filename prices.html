@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Price Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/pricesStyle.css">
+    <link rel="stylesheet" href="css/navigation.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Status Bar -->
+        <div class="status-bar-placeholder">
+            <span class="time">9:30</span>
+            <div class="notch-placeholder"></div>
+            <div class="status-icons">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-three-quarters"></i>
+            </div>
+        </div>
+
+        <!-- Page Header -->
+        <header class="page-header">
+            <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i></a>
+            <h1>Price details</h1>
+        </header>
+
+        <!-- Main Content -->
+        <main class="prices-content">
+            <section class="time-filter-section">
+                <div class="time-filter-buttons">
+                    <button class="time-filter-btn active" data-filter="this-week">This Week</button>
+                    <button class="time-filter-btn" data-filter="last-week">Last Week</button>
+                    <button class="time-filter-btn" data-filter="this-month">This Month</button>
+                    <button class="time-filter-btn" data-filter="this-year">This Year</button>
+                    <button class="time-filter-btn" data-filter="live">Live</button>
+                </div>
+            </section>
+
+            <section class="enterprise-selection-section">
+                <h2>Enterprises</h2>
+                <div class="enterprise-grid">
+                    <!-- JS will populate this or hardcode a few -->
+                </div>
+            </section>
+
+            <section class="trending-stats-section">
+                <h2>Trending Enterprise Stats</h2>
+                <div class="trending-stats-content">
+                    <div class="trending-item">
+                        <span class="trending-name">Enterprise Alpha</span>
+                        <span class="trending-metric">Avg. €0.42/kWh</span>
+                        <span class="trending-indicator up"><i class="fas fa-arrow-up"></i> 2%</span>
+                    </div>
+                    <div class="trending-item">
+                        <span class="trending-name">Enterprise Beta</span>
+                        <span class="trending-metric">Avg. €0.55/kWh</span>
+                        <span class="trending-indicator down"><i class="fas fa-arrow-down"></i> 1.5%</span>
+                    </div>
+                    <div class="trending-item">
+                        <span class="trending-name">Enterprise Gamma</span>
+                        <span class="trending-metric">Most Affordable Today</span>
+                        <span class="trending-indicator new"><i class="fas fa-star"></i> New Low</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="user-area-prices-section">
+                <h2>Price Trends in Your Area</h2>
+                <div class="area-chart-container">
+                    <p class="chart-title">Average €/kWh - Last 30 Days</p>
+                    <img src="https://i.imgur.com/gZyhYpx.png" alt="Sample area price trend chart" class="placeholder-chart">
+                    <!-- Replace with actual chart component or canvas -->
+                </div>
+                 <div class="area-chart-container">
+                    <p class="chart-title">Peak vs. Off-Peak Comparison</p>
+                    <img src="https://i.imgur.com/kL0Ea45.png" alt="Sample peak vs off-peak chart" class="placeholder-chart">
+                    <!-- Replace with actual chart component or canvas -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Reusable Bottom Navigation Bar -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="search.html" class="nav-item">
+                <i class="fas fa-search"></i>
+                <span>Search</span>
+            </a>
+            <a href="prices.html" class="nav-item active"> <!-- Mark as active -->
+                <i class="fas fa-tags"></i>
+                <span>Prices</span>
+            </a>
+            <a href="news.html" class="nav-item">
+                <i class="fas fa-newspaper"></i>
+                <span>News</span>
+            </a>
+            <a href="profile.html" class="nav-item">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </nav>
+    </div>
+    <script src="js/pricesScript.js"></script>
+    <script src="js/navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #e0e0e0;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 420px;
+    min-height: 100vh;
+    background-color: #FFF9FF;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 70px; /* Space for bottom navigation */
+}
+
+/* Status Bar (Consistent) */
+.status-bar-placeholder {
+    padding: 5px 15px; display: flex; justify-content: space-between; align-items: center;
+    font-size: 14px; color: #000; height: 30px; background-color: #FFF9FF;
+}
+.status-bar-placeholder .time { font-weight: 500; }
+.notch-placeholder {
+    width: 10px; height: 10px; background-color: #000; border-radius: 50%;
+    position: absolute; left: 50%; transform: translateX(-50%); top: 10px;
+}
+.status-icons i { margin-left: 8px; }
+
+/* Page Header */
+.page-header {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #FFF9FF; /* Match page background */
+    /* border-bottom: 1px solid #E0E0E0; */ /* Optional: if you want a line under header */
+}
+.page-header .back-button {
+    font-size: 24px;
+    color: #333;
+    margin-right: 15px;
+    text-decoration: none;
+}
+.page-header h1 {
+    font-size: 20px;
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Main Content Area */
+.prices-content {
+    padding: 15px 20px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+/* Time Filter Section */
+.time-filter-section {
+    margin-bottom: 25px;
+    overflow-x: auto; /* Allows horizontal scrolling if buttons overflow */
+    white-space: nowrap; /* Prevents buttons from wrapping */
+    padding-bottom: 10px; /* For scrollbar visibility if needed */
+}
+.time-filter-buttons {
+    display: inline-flex; /* Use inline-flex to allow horizontal scrolling */
+    gap: 10px;
+}
+.time-filter-btn {
+    padding: 10px 20px;
+    border: 1px solid #D0D0D0;
+    background-color: #FFFFFF;
+    color: #555;
+    border-radius: 20px; /* Pill shape */
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.time-filter-btn:hover {
+    background-color: #f0f0f0;
+}
+.time-filter-btn.active {
+    background-color: #E6F2E6; /* Light green for active */
+    color: #006400; /* Darker green text */
+    border-color: #A8D8A8;
+}
+
+/* Enterprise Selection Section */
+.enterprise-selection-section h2,
+.trending-stats-section h2,
+.user-area-prices-section h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+    margin-top: 0; /* For first section */
+}
+.enterprise-selection-section {
+    margin-bottom: 25px;
+}
+.enterprise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Responsive grid */
+    gap: 15px;
+}
+.enterprise-card {
+    background-color: #FFFFFF;
+    border: 1px solid #E8E8E8;
+    border-radius: 10px;
+    padding: 15px 10px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    color: inherit;
+}
+.enterprise-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+.enterprise-card .enterprise-name {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+    color: #444;
+}
+.enterprise-card .enterprise-icon {
+    font-size: 28px;
+    color: #2ECC71; /* Green lightning bolt */
+}
+
+/* Trending Stats Section */
+.trending-stats-section {
+    margin-bottom: 25px;
+}
+.trending-stats-content {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.trending-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.trending-item:last-child {
+    border-bottom: none;
+}
+.trending-name {
+    font-weight: 500;
+    flex-basis: 40%;
+}
+.trending-metric {
+    color: #555;
+    flex-basis: 35%;
+    text-align: right;
+}
+.trending-indicator {
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-basis: 20%;
+    justify-content: flex-end;
+}
+.trending-indicator.up { color: #2ECC71; } /* Green */
+.trending-indicator.down { color: #E74C3C; } /* Red */
+.trending-indicator.new { color: #F39C12; } /* Orange/Yellow for new */
+
+/* User Area Prices Section */
+.user-area-prices-section {
+    margin-bottom: 20px;
+}
+.area-chart-container {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    text-align: center;
+}
+.area-chart-container .chart-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 10px;
+}
+.placeholder-chart {
+    max-width: 100%;
+    height: auto;
+    border: 1px dashed #ddd;
+    border-radius: 5px;
+}

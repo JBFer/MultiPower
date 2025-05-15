@@ -22,30 +22,34 @@ body {
 
 /* Status Bar Placeholder */
 .status-bar-placeholder {
-    background-color: #fff;
-    color: #222;
+    background-color: #FFF9FF; /* Match pricesStyle.css */
+    color: #000; /* Match pricesStyle.css */
     padding: 5px 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.85em;
-    font-weight: 500;
-    height: 24px;
-    position: relative;
+    font-size: 14px; /* Match pricesStyle.css */
+    font-weight: normal; /* Reset from previous 500 if needed */
+    height: 30px; /* Match pricesStyle.css */
+    position: relative; /* Ensure notch is positioned correctly */
 }
-.notch-placeholder {
-    width: 120px;
-    height: 28px;
+.status-bar-placeholder .time { /* Added to match pricesStyle.css */
+    font-weight: 500;
+}
+.notch-placeholder { /* Match pricesStyle.css */
+    width: 10px;
+    height: 10px;
     background-color: #000;
-    border-radius: 14px;
+    border-radius: 50%;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: 3px;
+    top: 10px;
 }
-.status-bar-placeholder .status-icons {
-    display: flex;
-    gap: 6px;
+.status-bar-placeholder .status-icons { /* Match pricesStyle.css (no specific flex styles) */
+}
+.status-icons i { /* Added to match pricesStyle.css */
+    margin-left: 8px;
 }
 
 /* Header */

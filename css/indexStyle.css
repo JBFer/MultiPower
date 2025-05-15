@@ -25,39 +25,36 @@ body {
 
 /* Status Bar */
 .status-bar-placeholder {
-    background-color: #fff; /* Match app background or be transparent */
-    color: #222;
+    background-color: #FFF9FF; /* Match pricesStyle.css */
+    color: #000; /* Match pricesStyle.css */
     padding: 5px 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.85em; /* From searchStyle */
-    font-weight: 500; /* From searchStyle */
-    height: 24px; /* From searchStyle */
-    position: relative; /* Added from searchStyle */
+    font-size: 14px; /* Match pricesStyle.css */
+    height: 30px; /* Match pricesStyle.css */
+    position: relative; /* Ensure notch is positioned correctly */
 }
 
-.status-bar-placeholder .time { /* Retained from original mainStyle */
-    font-weight: 500;
+.status-bar-placeholder .time {
+    font-weight: 500; /* Consistent with pricesStyle.css */
 }
 
-.notch-placeholder { /* Copied from searchStyle.css */
-    width: 120px; 
-    height: 28px; 
+.notch-placeholder { /* Match pricesStyle.css */
+    width: 10px; 
+    height: 10px; 
     background-color: #000;
-    border-radius: 14px; 
+    border-radius: 50%; 
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: 3px; 
+    top: 10px; 
 }
 
-.status-bar-placeholder .status-icons { /* Added from searchStyle */
-    display: flex;
-    gap: 6px;
+.status-bar-placeholder .status-icons { /* Match pricesStyle.css (no specific flex styles) */
 }
-/* Ensure original .status-icons i styling is compatible or remove if redundant */
-.status-icons i { /* Retained from original mainStyle, check compatibility */
+
+.status-icons i { /* Match pricesStyle.css */
     margin-left: 8px;
 }
 
