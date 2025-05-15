@@ -106,6 +106,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function initializeTimePicker() {
         const timePickerInput = document.getElementById('reservationTime');
         timePickerInput.addEventListener('click', () => {
+            // Check if a time picker is already open
+            if (document.querySelector('.custom-time-picker')) {
+                return; // Exit if a time picker already exists
+            }
             const timePickerContainer = document.createElement('div');
             timePickerContainer.classList.add('custom-time-picker');
             timePickerContainer.style.position = 'absolute';
@@ -175,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             confirmButton.addEventListener('click', () => {
                 const selectedHour = hourSelect.value;
-                const selectedMinute = minuteSelect.value;
+                const selectedMinute = minuteSelect.value.padStart(2, '0'); // Ensure two-digit format
                 timePickerInput.textContent = `${selectedHour}:${selectedMinute}`;
                 document.body.removeChild(timePickerContainer);
             });
@@ -295,9 +299,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     reserveBtn.addEventListener('click', () => {
         const stationId = reserveBtn.dataset.stationId;
-        console.log("Reserving station:", stationId);
-        // Redirect to reservation confirmation page
-        window.location.href = 'reservation.html'; // Add ?stationId=${stationId} if needed
+        const selectedStation = stationData.find(s => s.id === stationId);
+
+        const dateValue = document.getElementById('reservationDate').value;
+        const timeValue = document.getElementById('reservationTime').textContent;
+
+        // Ensure timeValue is formatted as "HH:mm - HH:mm"
+        const startTime = timeValue; // Assuming `timeValue` is the start time
+        const endTime = new Date(new Date().setHours(...startTime.split(':').map(Number)));
+        endTime.setMinutes(endTime.getMinutes());
+        const formattedEndTime = `${endTime.getHours().toString().padStart(2, '0')}:${endTime.getMinutes().toString().padStart(2, '0')}`;
+        const reservationTime = `${startTime} - ${formattedEndTime}`;
+
+        // Calculate total fee
+        const reservationRatePerMinute = 0.07; // 0.07€/min
+        const durationMinutes = 60; // Default duration is 1 hour (60 minutes)
+        const totalFee = durationMinutes * reservationRatePerMinute;
+
+        console.log("Reserving station:", stationId, "Date:", dateValue, "Time:", reservationTime, "Total Fee:", totalFee);
+
+        let reservationUrl = `reservation.html?stationId=${encodeURIComponent(stationId)}`;
+        if (selectedStation) {
+            reservationUrl += `&stationName=${encodeURIComponent(selectedStation.name)}`;
+            reservationUrl += `&stationAddress=${encodeURIComponent(selectedStation.address)}`;
+        }
+        reservationUrl += `&date=${encodeURIComponent(dateValue)}`;
+        reservationUrl += `&time=${encodeURIComponent(reservationTime)}`;
+        reservationUrl += `&totalFee=${encodeURIComponent(totalFee.toFixed(2))}`; // Pass total fee
+
+        window.location.href = reservationUrl;
     });
     
     // Make header icons clickable
@@ -307,30 +337,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if(homeHeaderIcon) homeHeaderIcon.parentElement.addEventListener('click', () => window.location.href = 'index.html');
     if(profileHeaderIcon) profileHeaderIcon.parentElement.addEventListener('click', () => window.location.href = 'profile.html');
 
-
-    reserveBtn.addEventListener('click', () => {
-        const stationId = reserveBtn.dataset.stationId;
-        const selectedStation = stationData.find(s => s.id === stationId);
-
-        // Get date and time from the reservation panel inputs (example)
-        // In a real app, you might use a proper date/time picker library
-        const dateValue = document.getElementById('reservationDate').value;
-        const timeValue = document.getElementById('reservationTime').textContent;
-
-        console.log("Reserving station:", stationId, "Date:", dateValue, "Time:", timeValue);
-
-        // Construct URL with parameters
-        let reservationUrl = `reservation.html?stationId=${encodeURIComponent(stationId)}`;
-        if (selectedStation) {
-            reservationUrl += `&stationName=${encodeURIComponent(selectedStation.name)}`;
-            reservationUrl += `&stationAddress=${encodeURIComponent(selectedStation.address)}`;
-        }
-        reservationUrl += `&date=${encodeURIComponent(dateValue)}`;
-        reservationUrl += `&time=${encodeURIComponent(timeValue)}`;
-        // Add other relevant parameters like rate, estimated cost if available
-
-        window.location.href = reservationUrl;
-    });
 
     // --- RESERVATION FEE LOGIC ---
     function updateReservationFee() {

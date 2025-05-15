@@ -6,34 +6,75 @@ document.addEventListener('DOMContentLoaded', function() {
     const reservationIdValue = document.getElementById('reservationIdValue');
     const reservationDateValue = document.getElementById('reservationDateValue');
     const reservationTimeValue = document.getElementById('reservationTimeValue');
-    // const reservationDurationValue = document.getElementById('reservationDurationValue'); // Calculate or pass
     const stationNameValue = document.getElementById('stationNameValue');
     const stationAddressValue = document.getElementById('stationAddressValue');
-    // const chargingRateValue = document.getElementById('chargingRateValue');
-    // const estTotalValue = document.getElementById('estTotalValue');
-
+    const reservationRateValue = document.getElementById('reservationRateValue');
+    const estTotalValue = document.getElementById('estTotalValue');
+    const reservationDurationValue = document.getElementById('reservationDurationValue');
 
     // Get data from URL parameters
     const params = new URLSearchParams(window.location.search);
     const stationName = params.get('stationName') || 'N/A';
     const stationAddress = params.get('stationAddress') || 'N/A';
     const reservationDate = params.get('date') || 'Jan 15, 2025'; // Default placeholder
-    const reservationTime = params.get('time') || '2:30 PM - 4:30 PM'; // Default placeholder
-    // Example: you might also pass stationId, rate, etc.
+    const reservationTime = params.get('time') || ''; // Default to an empty string if not provided
 
     // Populate the page
-    // For demo, using some defaults if params not fully set
     reservationIdValue.textContent = `#${Math.floor(10000 + Math.random() * 90000)}`; // Random ID
     reservationDateValue.textContent = decodeURIComponent(reservationDate);
     reservationTimeValue.textContent = decodeURIComponent(reservationTime);
     stationNameValue.textContent = decodeURIComponent(stationName);
     stationAddressValue.textContent = decodeURIComponent(stationAddress);
 
-    // Placeholder for duration, rate, total - these would typically come from backend or calculation
-    document.getElementById('reservationDurationValue').textContent = "2 hours";
-    document.getElementById('chargingRateValue').textContent = "$0.40/kWh";
-    document.getElementById('estTotalValue').textContent = "$12.00";
+    // Define the reservation rate per minute
+    const reservationRatePerMinute = 0.07; // 0.07€/min
 
+    // Calculate the total reservation fee
+    function calculateReservationFee() {
+        if (!reservationTime || !reservationTime.includes(' - ')) {
+            console.error('Invalid reservation time:', reservationTime);
+            reservationRateValue.textContent = `${reservationRatePerMinute.toFixed(2)}€/min`;
+            estTotalValue.textContent = '0.00€';
+            return;
+        }
+
+        const [, endTime] = reservationTime.split(' - '); // Treat the provided time as the end time
+
+        const parseTime = (time) => {
+            const [hour, minute] = time.split(':').map(Number);
+            return hour * 60 + minute; // Convert time to total minutes
+        };
+
+        const currentTime = new Date();
+        const currentTotalMinutes = currentTime.getHours() * 60 + currentTime.getMinutes(); // Current time as initial time
+        const endTotalMinutes = parseTime(endTime);
+
+        const durationMinutes = endTotalMinutes - currentTotalMinutes;
+
+        if (durationMinutes <= 0) {
+            console.error('Invalid duration:', durationMinutes);
+            reservationRateValue.textContent = `${reservationRatePerMinute.toFixed(2)}€/min`;
+            estTotalValue.textContent = '0.00€';
+            return;
+        }
+
+        const totalFee = durationMinutes * reservationRatePerMinute;
+
+        reservationRateValue.textContent = `${reservationRatePerMinute.toFixed(2)}€/min`;
+        estTotalValue.textContent = `${totalFee.toFixed(2)}€`;
+
+        // Update the duration value on the page
+        const hours = Math.floor(durationMinutes / 60);
+        const minutes = durationMinutes % 60;
+        const durationText = hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
+        reservationDurationValue.textContent = durationText;
+
+        // Update the reservation time to reflect the current time as the start time
+        const formattedCurrentTime = `${currentTime.getHours().toString().padStart(2, '0')}:${currentTime.getMinutes().toString().padStart(2, '0')}`;
+        reservationTimeValue.textContent = `${formattedCurrentTime} - ${endTime}`; // Correctly display the end time
+    }
+
+    calculateReservationFee();
 
     if (continueBtn) {
         continueBtn.addEventListener('click', function() {

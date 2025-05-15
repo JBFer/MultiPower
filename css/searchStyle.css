@@ -373,7 +373,9 @@ body {
     cursor: pointer; /* Indicates it's interactive */
     text-decoration: none; /* Remove underline */
     gap: 5px; /* Add spacing between time and arrow */
+    padding: 10px; /* Ensure the entire area is clickable */
 }
+
 .time-picker-input i {
     font-size: 0.8em;
     color: #888;
