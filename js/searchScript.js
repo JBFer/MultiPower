@@ -354,10 +354,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const minuteDifference = selectedMinute - currentMinute;
         const totalMinutes = hourDifference * 60 + minuteDifference;
 
-        // Ensure the fee is calculated only for future times
-        let fee = 0;
+        const baseFee = 3; // Base fee of 3€
+        let fee = baseFee; // Start with base fee
         if (totalMinutes > 0) {
-            fee = totalMinutes * 0.07; // 0.07€ per minute
+            fee += totalMinutes * 0.07; // Add time fee
         }
 
         const userBalance = parseFloat(userBalanceElement.textContent.replace('€', ''));

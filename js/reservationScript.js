@@ -26,15 +26,16 @@ document.addEventListener('DOMContentLoaded', function() {
     stationNameValue.textContent = decodeURIComponent(stationName);
     stationAddressValue.textContent = decodeURIComponent(stationAddress);
 
-    // Define the reservation rate per minute
+    // Define the reservation rate per minute and base fee
     const reservationRatePerMinute = 0.07; // 0.07€/min
+    const baseFee = 3; // Base fee of 3€
 
     // Calculate the total reservation fee
     function calculateReservationFee() {
         if (!reservationTime || !reservationTime.includes(' - ')) {
             console.error('Invalid reservation time:', reservationTime);
             reservationRateValue.textContent = `${reservationRatePerMinute.toFixed(2)}€/min`;
-            estTotalValue.textContent = '0.00€';
+            estTotalValue.textContent = `${baseFee.toFixed(2)}€`; // Show only base fee
             return;
         }
 
@@ -54,11 +55,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (durationMinutes <= 0) {
             console.error('Invalid duration:', durationMinutes);
             reservationRateValue.textContent = `${reservationRatePerMinute.toFixed(2)}€/min`;
-            estTotalValue.textContent = '0.00€';
+            estTotalValue.textContent = `${baseFee.toFixed(2)}€`; // Show only base fee
             return;
         }
 
-        const totalFee = durationMinutes * reservationRatePerMinute;
+        const totalFee = baseFee + durationMinutes * reservationRatePerMinute; // Add base fee to time fee
 
         reservationRateValue.textContent = `${reservationRatePerMinute.toFixed(2)}€/min`;
         estTotalValue.textContent = `${totalFee.toFixed(2)}€`;
