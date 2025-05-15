@@ -94,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
         headerTitle.textContent = title;
-        backButton.classList.toggle('hidden', pageId === 'chooseVehiclePage');
     }
 
     // --- EVENT HANDLERS ---
@@ -160,7 +159,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     addVehicleBtn.addEventListener('click', handleAddVehicle);
-    backButton.addEventListener('click', () => showPage('chooseVehiclePage', 'Choose your vehicle'));
+    
+    backButton.addEventListener('click', () => {
+        if (vehicleFormPage.classList.contains('active')) {
+            showPage('chooseVehiclePage', 'Choose your vehicle');
+        } else if (chooseVehiclePage.classList.contains('active')) {
+            window.history.back();
+        }
+    });
 
     // Clear input button functionality
     document.querySelectorAll('.clear-input-btn').forEach(btn => {
@@ -174,5 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- INITIALIZATION ---
     loadVehicles();
     renderVehicleList();
+    backButton.classList.remove('hidden'); // Ensure this line is present to make the button visible
     showPage('chooseVehiclePage', 'Choose your vehicle');
 });
