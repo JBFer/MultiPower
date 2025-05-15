@@ -343,8 +343,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 15px;
     gap: 10px;
-    margin-bottom: 30px;
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    justify-content: space-between; /* Ensure proper spacing */
 }
 
 .date-picker-input,
@@ -352,7 +354,7 @@ body {
 .reservation-fee-info {
     background-color: #f0f2f5; /* Light grey background for inputs */
     border-radius: 8px;
-    padding: 12px 15px;
+    padding: 10px 13px;
     font-size: 0.9em;
     color: #333;
     border: 1px solid #e0e0e0;
@@ -369,6 +371,8 @@ body {
     justify-content: space-between;
     align-items: center;
     cursor: pointer; /* Indicates it's interactive */
+    text-decoration: none; /* Remove underline */
+    gap: 5px; /* Add spacing between time and arrow */
 }
 .time-picker-input i {
     font-size: 0.8em;
@@ -376,17 +380,16 @@ body {
 }
 
 .reservation-fee-info {
-    flex-basis: 30%; /* Adjust based on content */
+    width: calc(100% - 26px); /* Adjust width to account for padding */
+    margin: 0 auto 20px auto; /* Center horizontally and add bottom margin */
     text-align: center;
     border: 1px solid #e0e0e0; /* Match input fields slightly */
     background-color: #f0f2f5;
-}
-.reservation-fee-info span {
+    padding: 12px; /* Adjust padding for better appearance */
+    font-size: 0.9em;
     font-weight: 600;
-    display: block; /* Make span take full width if needed or align items center */
-    color: #34c759; /* Green fee */
+    color: #333;
 }
-
 
 .reserve-button-main {
     width: 100%;
@@ -415,4 +418,28 @@ body {
 }
 #reservationView ~ .pull-handle-bar {
     /* display: none; */ /* Or adjust logic based on visibility */
+}
+
+/* Custom Time Picker */
+.custom-time-picker select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #f0f2f5;
+    color: #333;
+    font-size: 0.9em;
+    padding: 8px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom-time-picker button {
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.custom-time-picker button:hover {
+    background-color: #2c2c2e;
 }

@@ -2,26 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Reservation Confirmed</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css"> <!-- Or a specific reservationStyle.css -->
-    <link rel="stylesheet" href="css/navigation.css">
-    <style>
-        .app-container { padding-bottom: 70px; }
-        .main-content { text-align: center; padding: 50px 20px; }
-        .main-content h1 { color: #34c759; }
-        .main-content p { font-size: 1.1em; margin-bottom: 20px;}
-        .home-button {
-            display: inline-block;
-            padding: 12px 25px;
-            background-color: #333;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 500;
-        }
-    </style>
+    <link rel="stylesheet" href="css/reservationStyle.css">
 </head>
 <body>
     <div class="app-container">
@@ -36,38 +20,75 @@
             </div>
         </div>
 
-        <main class="main-content">
-            <i class="fas fa-check-circle" style="font-size: 60px; color: #34c759; margin-bottom: 20px;"></i>
-            <h1>Reservation Successful!</h1>
-            <p>Your charging spot has been reserved.</p>
-            <p>Details about your reservation will be shown here or sent via notification.</p>
-            <a href="index.html" class="home-button">Back to Home</a>
-        </main>
+        <!-- Main Content -->
+        <main class="reservation-details-content">
+            <div class="confirmation-header">
+                <div class="checkmark-circle">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h1>Reservation Confirmed!</h1>
+                <p>Your charging session is scheduled</p>
+            </div>
 
-        <!-- Reusable Bottom Navigation Bar -->
-        <nav class="bottom-nav">
-            <a href="index.html" class="nav-item">
-                <i class="fas fa-home"></i>
-                <span>Home</span>
-            </a>
-            <a href="search.html" class="nav-item active">
-                <i class="fas fa-search"></i>
-                <span>Search</span>
-            </a>
-            <a href="prices.html" class="nav-item">
-                <i class="fas fa-tags"></i>
-                <span>Prices</span>
-            </a>
-            <a href="news.html" class="nav-item">
-                <i class="fas fa-newspaper"></i>
-                <span>News</span>
-            </a>
-            <a href="profile.html" class="nav-item">
-                <i class="fas fa-user"></i>
-                <span>Profile</span>
-            </a>
-        </nav>
+            <div class="details-card reservation-info-card">
+                <div class="info-row">
+                    <span>Reservation ID</span>
+                    <span id="reservationIdValue">#25489</span>
+                </div>
+                <div class="info-row">
+                    <span>Date</span>
+                    <span id="reservationDateValue">Jan 15, 2025</span>
+                </div>
+                <div class="info-row">
+                    <span>Time</span>
+                    <span id="reservationTimeValue">2:30 PM - 4:30 PM</span>
+                </div>
+                <div class="info-row">
+                    <span>Duration</span>
+                    <span id="reservationDurationValue">2 hours</span>
+                </div>
+            </div>
+
+            <div class="details-card station-details-card">
+                <div class="station-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="station-name-group">
+                        <h3>Charging Station</h3>
+                        <p id="stationNameValue">Pingo Doce Aveiro - Ria</p>
+                    </div>
+                </div>
+                <div class="map-placeholder-small">
+                    <!-- Placeholder for static map image -->
+                    <img src="https://i.imgur.com/G0sEaY7.png" alt="Map snippet of station location">
+                </div>
+                <p class="station-address" id="stationAddressValue">
+                    Rua Doutor Francisco Ferreira Neves, Urbanização Das Barrocas 15,
+                    3800-056 Aveiro
+                </p>
+            </div>
+
+            <div class="details-card payment-details-card">
+                <h3>Payment Details</h3>
+                <div class="info-row">
+                    <span>Charging Rate</span>
+                    <span id="chargingRateValue">$0.40/kWh</span>
+                </div>
+                <div class="info-row">
+                    <span>Est. Total</span>
+                    <span id="estTotalValue">$12.00</span>
+                </div>
+                <div class="payment-method-row">
+                    <i class="fas fa-wallet"></i>
+                    <span>Paid with account wallet</span>
+                </div>
+            </div>
+
+            <div class="action-buttons-container">
+                <button id="continueBtn" class="btn-primary">Continue</button>
+                <button id="historyBtn" class="btn-secondary">Reservation History</button>
+            </div>
+        </main>
     </div>
-    <script src="js/navigation.js"></script>
+    <script src="js/reservationScript.js"></script>
 </body>
 </html>

@@ -1,0 +1,189 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f0f2f5; /* Light grey page background */
+    color: #1c1c1e; /* Default text color */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 420px;
+    min-height: 100vh;
+    background-color: #f0f2f5; /* Match body */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Status Bar (Consistent) */
+.status-bar-placeholder {
+    padding: 5px 15px; display: flex; justify-content: space-between; align-items: center;
+    font-size: 14px; color: #000; height: 30px; background-color: #f0f2f5; /* Match page bg */
+}
+.status-bar-placeholder .time { font-weight: 500; }
+.notch-placeholder {
+    width: 10px; height: 10px; background-color: #000; border-radius: 50%;
+    position: absolute; left: 50%; transform: translateX(-50%); top: 10px;
+}
+.status-icons i { margin-left: 8px; }
+
+/* Main Content Area */
+.reservation-details-content {
+    padding: 20px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.confirmation-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+.checkmark-circle {
+    width: 50px;
+    height: 50px;
+    background-color: #e9e9eb; /* Light grey circle */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 15px auto;
+}
+.checkmark-circle i.fa-check {
+    font-size: 24px;
+    color: #333; /* Dark checkmark */
+}
+.confirmation-header h1 {
+    font-size: 1.4em;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.confirmation-header p {
+    font-size: 0.95em;
+    color: #636366;
+    margin: 0;
+}
+
+.details-card {
+    background-color: #ffffff; /* White cards */
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9em;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f2f5; /* Light separator inside card */
+}
+.info-row:last-child {
+    border-bottom: none;
+}
+.info-row span:first-child {
+    color: #636366; /* Label color */
+}
+.info-row span:last-child {
+    font-weight: 500; /* Value color */
+    color: #1c1c1e;
+}
+
+.station-details-card .station-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.station-details-card .station-header i.fa-map-marker-alt {
+    font-size: 1.3em;
+    color: #888;
+    margin-right: 12px;
+}
+.station-details-card .station-name-group h3 {
+    font-size: 0.8em;
+    color: #636366;
+    margin: 0 0 2px 0;
+    font-weight: normal;
+}
+.station-details-card .station-name-group p {
+    font-size: 1em;
+    font-weight: 500;
+    margin: 0;
+    color: #1c1c1e;
+}
+
+.map-placeholder-small {
+    width: 100%;
+    height: 120px; /* Adjust as needed */
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    background-color: #ccc; /* Fallback */
+}
+.map-placeholder-small img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.station-address {
+    font-size: 0.85em;
+    color: #636366;
+    line-height: 1.4;
+}
+
+.payment-details-card h3 {
+    font-size: 1em;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+.payment-method-row {
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+    color: #1c1c1e;
+    padding-top: 10px;
+    margin-top: 5px; /* Space above this row */
+}
+.payment-method-row i.fa-wallet {
+    margin-right: 10px;
+    color: #888;
+}
+
+.action-buttons-container {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.btn-primary, .btn-secondary {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+.btn-primary {
+    background-color: #1c1c1e; /* Dark primary button */
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #333;
+}
+.btn-secondary {
+    background-color: #e9e9eb; /* Light grey secondary button */
+    color: #1c1c1e;
+}
+.btn-secondary:hover {
+    background-color: #dcdce0;
+}

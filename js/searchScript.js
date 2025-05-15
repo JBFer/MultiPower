@@ -92,11 +92,106 @@ document.addEventListener('DOMContentLoaded', () => {
             availabilityDot.style.backgroundColor = '#ff3b30'; // Red (or grey)
         }
         // Set default date/time (can be dynamic later)
-        // document.getElementById('reservationDate').value = "April 15, 2024";
-        // document.getElementById('reservationTime').textContent = "9:40 AM";
+        const currentTime = new Date();
+        const currentHour = currentTime.getHours();
+        const currentMinute = currentTime.getMinutes();
+        const formattedTime = `${currentHour.toString().padStart(2, '0')}:${currentMinute.toString().padStart(2, '0')}`;
+        document.getElementById('reservationTime').textContent = formattedTime;
 
         // Store station ID for reservation button or any other use
         reserveBtn.dataset.stationId = station.id;
+    }
+
+    // --- TIME PICKER LOGIC ---
+    function initializeTimePicker() {
+        const timePickerInput = document.getElementById('reservationTime');
+        timePickerInput.addEventListener('click', () => {
+            const timePickerContainer = document.createElement('div');
+            timePickerContainer.classList.add('custom-time-picker');
+            timePickerContainer.style.position = 'absolute';
+            timePickerContainer.style.zIndex = '1000';
+            timePickerContainer.style.backgroundColor = '#fff';
+            timePickerContainer.style.border = '1px solid #e0e0e0';
+            timePickerContainer.style.borderRadius = '8px';
+            timePickerContainer.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.2)';
+            timePickerContainer.style.padding = '10px';
+            timePickerContainer.style.display = 'flex';
+            timePickerContainer.style.gap = '10px';
+            timePickerContainer.style.left = `${timePickerInput.getBoundingClientRect().left}px`;
+            timePickerContainer.style.top = `${timePickerInput.getBoundingClientRect().bottom + window.scrollY}px`;
+
+            const hourSelect = document.createElement('select');
+            hourSelect.style.padding = '5px';
+            hourSelect.style.border = '1px solid #e0e0e0';
+            hourSelect.style.borderRadius = '5px';
+            hourSelect.style.fontSize = '0.9em';
+
+            const minuteSelect = document.createElement('select');
+            minuteSelect.style.padding = '5px';
+            minuteSelect.style.border = '1px solid #e0e0e0';
+            minuteSelect.style.borderRadius = '5px';
+            minuteSelect.style.fontSize = '0.9em';
+
+            const currentTime = new Date();
+            const currentHour = currentTime.getHours();
+            const currentMinute = currentTime.getMinutes();
+            const maxTime = new Date(currentTime.getTime() + 2 * 60 * 60 * 1000); // 2 hours from now
+            const maxHour = maxTime.getHours();
+            const maxMinute = maxTime.getMinutes();
+
+            for (let i = currentHour; i <= maxHour; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i.toString().padStart(2, '0');
+                hourSelect.appendChild(option);
+            }
+
+            hourSelect.addEventListener('change', () => {
+                minuteSelect.innerHTML = ''; // Clear previous options
+                const selectedHour = parseInt(hourSelect.value, 10);
+                const startMinute = selectedHour === currentHour ? currentMinute : 0;
+                const endMinute = selectedHour === maxHour ? maxMinute : 59;
+
+                for (let i = startMinute; i <= endMinute; i += 5) {
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.textContent = i.toString().padStart(2, '0');
+                    minuteSelect.appendChild(option);
+                }
+            });
+
+            // Initialize minute options for the current hour
+            hourSelect.dispatchEvent(new Event('change'));
+
+            const confirmButton = document.createElement('button');
+            confirmButton.textContent = 'OK';
+            confirmButton.style.padding = '5px 10px';
+            confirmButton.style.backgroundColor = '#34c759';
+            confirmButton.style.color = '#fff';
+            confirmButton.style.border = 'none';
+            confirmButton.style.borderRadius = '5px';
+            confirmButton.style.cursor = 'pointer';
+            confirmButton.style.fontSize = '0.9em';
+
+            confirmButton.addEventListener('click', () => {
+                const selectedHour = hourSelect.value;
+                const selectedMinute = minuteSelect.value;
+                timePickerInput.textContent = `${selectedHour}:${selectedMinute}`;
+                document.body.removeChild(timePickerContainer);
+            });
+
+            timePickerContainer.appendChild(hourSelect);
+            timePickerContainer.appendChild(minuteSelect);
+            timePickerContainer.appendChild(confirmButton);
+
+            document.body.appendChild(timePickerContainer);
+
+            document.addEventListener('click', (event) => {
+                if (!timePickerContainer.contains(event.target) && event.target !== timePickerInput) {
+                    document.body.removeChild(timePickerContainer);
+                }
+            }, { once: true });
+        });
     }
 
     // --- RENDER FUNCTIONS ---
@@ -213,7 +308,72 @@ document.addEventListener('DOMContentLoaded', () => {
     if(profileHeaderIcon) profileHeaderIcon.parentElement.addEventListener('click', () => window.location.href = 'profile.html');
 
 
+    reserveBtn.addEventListener('click', () => {
+        const stationId = reserveBtn.dataset.stationId;
+        const selectedStation = stationData.find(s => s.id === stationId);
+
+        // Get date and time from the reservation panel inputs (example)
+        // In a real app, you might use a proper date/time picker library
+        const dateValue = document.getElementById('reservationDate').value;
+        const timeValue = document.getElementById('reservationTime').textContent;
+
+        console.log("Reserving station:", stationId, "Date:", dateValue, "Time:", timeValue);
+
+        // Construct URL with parameters
+        let reservationUrl = `reservation.html?stationId=${encodeURIComponent(stationId)}`;
+        if (selectedStation) {
+            reservationUrl += `&stationName=${encodeURIComponent(selectedStation.name)}`;
+            reservationUrl += `&stationAddress=${encodeURIComponent(selectedStation.address)}`;
+        }
+        reservationUrl += `&date=${encodeURIComponent(dateValue)}`;
+        reservationUrl += `&time=${encodeURIComponent(timeValue)}`;
+        // Add other relevant parameters like rate, estimated cost if available
+
+        window.location.href = reservationUrl;
+    });
+
+    // --- RESERVATION FEE LOGIC ---
+    function updateReservationFee() {
+        const timePickerInput = document.getElementById('reservationTime').textContent;
+        const userBalanceElement = document.querySelector('.user-balance-info span');
+        const reservationFeeElement = document.querySelector('.reservation-fee-info span');
+
+        const currentTime = new Date();
+        const [currentHour, currentMinute] = [currentTime.getHours(), currentTime.getMinutes()];
+
+        const [selectedHour, selectedMinute] = timePickerInput.split(':').map(Number);
+
+        // Calculate the total difference in minutes
+        const hourDifference = selectedHour - currentHour;
+        const minuteDifference = selectedMinute - currentMinute;
+        const totalMinutes = hourDifference * 60 + minuteDifference;
+
+        // Ensure the fee is calculated only for future times
+        let fee = 0;
+        if (totalMinutes > 0) {
+            fee = totalMinutes * 0.07; // 0.07€ per minute
+        }
+
+        const userBalance = parseFloat(userBalanceElement.textContent.replace('€', ''));
+        const remainingBalance = Math.max(0, userBalance - fee);
+
+        reservationFeeElement.textContent = `${fee.toFixed(2)}€`; // Update fee display
+        userBalanceElement.textContent = `${remainingBalance.toFixed(2)}€`; // Update wallet balance
+    }
+
+    // Use MutationObserver to detect changes in the reservationTime element
+    const reservationTimeElement = document.getElementById('reservationTime');
+    const observer = new MutationObserver(() => {
+        updateReservationFee();
+    });
+
+    observer.observe(reservationTimeElement, { childList: true, characterData: true, subtree: true });
+
+    // Call the function initially to set the default fee
+    updateReservationFee();
+
     // --- INITIAL RENDER ---
     applyFilters();
     showListView(); // Ensure list view is the default
+    initializeTimePicker();
 });
