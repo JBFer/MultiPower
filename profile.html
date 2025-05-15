@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/profileStyle.css">
+    <link rel="stylesheet" href="css/navigation.css"> <!-- CSS for the new bottom navigation -->
+</head>
+<body>
+    <div class="app-container">
+        <!-- Status Bar -->
+        <div class="status-bar-placeholder">
+            <span class="time">9:30</span>
+            <div class="notch-placeholder"></div>
+            <div class="status-icons">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-three-quarters"></i>
+            </div>
+        </div>
+
+        <!-- Profile Header -->
+        <header class="profile-header">
+            <a href="mainMenu.html" class="header-icon-link"><i class="fas fa-home"></i></a>
+            <a href="#" class="header-icon-link"><i class="fas fa-cog"></i></a>
+        </header>
+
+        <!-- Main Profile Content -->
+        <main class="profile-content">
+            <section class="user-summary-section">
+                <div class="user-avatar-large">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-balance">324.50€</div>
+                <button class="add-funds-button">
+                    <i class="fas fa-plus"></i> Add
+                </button>
+            </section>
+
+            <section class="charging-stats-section">
+                <h3>Charging Statistics</h3>
+                <div class="chart-placeholder-profile">
+                    <!-- This is a placeholder for the chart image -->
+                    <img src="https://i.imgur.com/mX7Qz3r.png" alt="Charging statistics chart" style="width:100%; height:auto; border: 1px solid #ddd; border-radius: 8px;">
+                </div>
+                <div class="stats-boxes">
+                    <div class="stat-box">
+                        <span class="stat-label">Total Miles</span>
+                        <span class="stat-value">1,234 mi</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Avg. Cost/Mile</span>
+                        <span class="stat-value">$0.12</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Avg. Charge Price</span>
+                        <span class="stat-value">$0.52</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="current-car-section">
+                <h3>Current Car</h3>
+                <div class="car-image-container">
+                    <img src="https://i.imgur.com/jS8Y9Vd.png" alt="Sketch of a sports car" class="car-image">
+                </div>
+                <div class="car-actions">
+                    <button class="car-action-button" id="carStatsButton">Statistics</button>
+                    <button class="car-action-button" id="manageCarsButton">Manage Cars</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Reusable Bottom Navigation Bar -->
+        <nav class="bottom-nav">
+            <a href="mainMenu.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="search.html" class="nav-item">
+                <i class="fas fa-search"></i>
+                <span>Search</span>
+            </a>
+            <a href="prices.html" class="nav-item">
+                <i class="fas fa-tags"></i>
+                <span>Prices</span>
+            </a>
+            <a href="news.html" class="nav-item">
+                <i class="fas fa-newspaper"></i>
+                <span>News</span>
+            </a>
+            <a href="profile.html" class="nav-item active"> <!-- Mark as active -->
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </nav>
+    </div>
+    <script src="js/profileScript.js"></script>
+    <script src="js/navigation.js"></script> <!-- JS for the bottom navigation (e.g. active state) -->
+</body>
+</html>

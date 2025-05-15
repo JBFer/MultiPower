@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>News</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css"> <!-- Or a specific newsStyle.css -->
+    <link rel="stylesheet" href="css/navigation.css"> <!-- CSS for the new bottom navigation -->
+    <style>
+        .app-container { padding-bottom: 70px; /* Space for bottom nav */ }
+        .main-content { text-align: center; padding-top: 50px; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Status Bar -->
+        <div class="status-bar-placeholder">
+            <span class="time">9:30</span>
+            <div class="notch-placeholder"></div>
+            <div class="status-icons">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-three-quarters"></i>
+            </div>
+        </div>
+
+         <header class="page-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px;">
+            <a href="mainMenu.html" style="color: #333; font-size: 24px;"><i class="fas fa-arrow-left"></i></a>
+            <h1 style="font-size: 20px; margin: 0; text-align: center; flex-grow: 1;">News & Updates</h1>
+            <div style="width: 24px;"></div> <!-- Spacer -->
+        </header>
+        <hr class="header-divider" style="margin: 0 20px;">
+
+
+        <main class="main-content">
+            <h2>Latest News & Articles</h2>
+            <p>News content will appear here.</p>
+            <!-- Add news article cards later -->
+        </main>
+
+        <!-- Reusable Bottom Navigation Bar -->
+        <nav class="bottom-nav">
+            <a href="mainMenu.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="search.html" class="nav-item">
+                <i class="fas fa-search"></i>
+                <span>Search</span>
+            </a>
+            <a href="prices.html" class="nav-item">
+                <i class="fas fa-tags"></i>
+                <span>Prices</span>
+            </a>
+            <a href="news.html" class="nav-item active"> <!-- Mark as active -->
+                <i class="fas fa-newspaper"></i>
+                <span>News</span>
+            </a>
+            <a href="profile.html" class="nav-item">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </nav>
+    </div>
+    <script src="js/navigation.js"></script>
+</body>
+</html>

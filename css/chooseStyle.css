@@ -1,0 +1,321 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #e0e0e0; /* Updated */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 420px; /* Updated */
+    min-height: 100vh;
+    background-color: #ffffff; /* Updated */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2); /* Updated */
+    overflow: hidden; /* Important for page transitions */
+}
+
+/* Status Bar Placeholder */
+.status-bar-placeholder {
+    background-color: #fff;
+    color: #222;
+    padding: 5px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85em;
+    font-weight: 500;
+    height: 24px;
+    position: relative;
+}
+.notch-placeholder {
+    width: 120px;
+    height: 28px;
+    background-color: #000;
+    border-radius: 14px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 3px;
+}
+.status-bar-placeholder .status-icons {
+    display: flex;
+    gap: 6px;
+}
+
+/* Header */
+.app-header {
+    background-color: #fff; /* Updated */
+    display: flex;
+    align-items: center;
+    padding: 10px 15px; /* Updated */
+    position: relative; /* For absolute positioning of back button */
+    min-height: 28px; /* Ensure consistent height */
+}
+.app-header h1 {
+    font-size: 1.05em; /* Updated */
+    font-weight: 600;
+    margin: 0;
+    color: #1c1c1e; /* Updated */
+    text-align: center;
+    flex-grow: 1;
+}
+.back-button {
+    background: none;
+    border: none;
+    font-size: 1.2em; /* Matched .header-icon from searchStyle */
+    color: #444; /* Matched .header-icon from searchStyle */
+    cursor: pointer;
+    padding: 5px;
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.back-button.hidden {
+    display: none;
+}
+
+
+/* Page Content & Transitions */
+.page-content {
+    flex-grow: 1;
+    overflow-y: auto; /* Allow scrolling within content area */
+    padding: 0 15px 15px 15px; /* Padding for content inside pages */
+}
+.page {
+    display: none; /* Hidden by default */
+    animation: fadeIn 0.3s ease-out;
+}
+.page.active {
+    display: block;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Vehicle List (Choose Vehicle Page) */
+.vehicle-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.vehicle-card {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    cursor: pointer;
+    border: 2px solid transparent; /* For selection indication */
+    position: relative; /* For edit button */
+}
+.vehicle-card.selected {
+    border-color: #7b4b9c; /* Purple border for selected */
+}
+
+.vehicle-card-image-container {
+    width: 90px;
+    height: 70px;
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+.vehicle-card-image-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+.image-overlay-number-small {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.08);
+    z-index: 0;
+}
+
+.vehicle-card-info {
+    flex-grow: 1;
+}
+.vehicle-card-info h3 {
+    margin: 0 0 10px 0;
+    font-size: 1em;
+    font-weight: 600;
+    color: #1c1c1e;
+}
+.vehicle-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 8px 12px; /* Row and column gap */
+    font-size: 0.8em;
+    color: #555;
+}
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.stat-item i {
+    font-size: 1.1em; /* Slightly larger icons */
+    color: #888;
+    width: 16px; /* Ensure alignment */
+    text-align: center;
+}
+.stat-item .fa-charging-station { color: #76c7c0; } /* Tealish */
+.stat-item .fa-route { color: #f0ad4e; } /* Orange */
+.stat-item .fa-plug { color: #5bc0de; } /* Blue */
+.stat-item .fa-piggy-bank { color: #d9534f; } /* Reddish */
+
+.edit-vehicle-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    padding: 6px;
+    font-size: 0.8em;
+    color: #555;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.edit-vehicle-icon:hover {
+    color: #000;
+}
+
+
+.add-vehicle-button {
+    background-color: #fff;
+    border: 1px dashed #c7c7cc;
+    color: #555;
+    border-radius: 16px;
+    padding: 20px;
+    font-size: 1.8em;
+    width: 100%;
+    margin-top: 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: background-color 0.2s;
+}
+.add-vehicle-button:hover {
+    background-color: #f9f9f9;
+}
+
+
+/* Vehicle Form Page (Add/Edit) */
+.vehicle-form-image-container {
+    width: 100%;
+    max-width: 300px; /* Control max size */
+    aspect-ratio: 4 / 3;
+    background-color: #f0f0f0;
+    border-radius: 16px;
+    margin: 0 auto 25px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.form-vehicle-image {
+    width: 90%;
+    height: auto;
+    object-fit: contain;
+}
+.image-overlay-number {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    font-size: 8em;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.06);
+    z-index: 0;
+    line-height: 1;
+}
+
+
+#vehicleForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+.form-group label {
+    font-size: 0.8em;
+    color: #666;
+    margin-bottom: 5px;
+    padding-left: 5px;
+}
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.form-group input[type="text"],
+.form-group input[type="number"] { /* If you add number inputs for stats */
+    width: 100%;
+    padding: 12px 35px 12px 15px; /* Space for clear button */
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 0.95em;
+    background-color: #fff;
+    box-sizing: border-box; /* ensure padding doesn't expand it */
+}
+.form-group input[type="text"]:focus,
+.form-group input[type="number"]:focus {
+    outline: none;
+    border-color: #a0a0a0;
+    box-shadow: 0 0 0 2px rgba(123, 75, 156, 0.2); /* Light purple focus */
+}
+.clear-input-btn {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    font-size: 1em;
+    padding: 5px;
+}
+.clear-input-btn:hover {
+    color: #777;
+}
+
+.save-changes-button {
+    background-color: #2c2c2e; /* Dark button like image */
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 15px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.2s;
+}
+.save-changes-button:hover {
+    background-color: #444;
+}
+
+/* Utility */
+.hidden {
+    display: none !important;
+}

@@ -1,0 +1,254 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #e0e0e0; /* Light gray background for the page */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 420px; /* Approximate iPhone 12/13 width */
+    min-height: 100vh;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    overflow: hidden;
+    padding-bottom: 70px; /* Space for bottom navigation bar */
+}
+
+/* Status Bar Placeholder */
+.status-bar-placeholder {
+    background-color: #fff;
+    color: #222;
+    padding: 5px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85em;
+    font-weight: 500;
+    height: 24px; /* Approximate height */
+    position: relative;
+}
+.notch-placeholder { /* Notch/Dynamic Island placeholder */
+    width: 120px; /* Wider for "island" look */
+    height: 28px; /* Taller */
+    background-color: #000;
+    border-radius: 14px; /* Rounded */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 3px; /* Slight offset */
+}
+.status-bar-placeholder .status-icons {
+    display: flex;
+    gap: 6px;
+}
+
+/* Header */
+.app-header {
+    background-color: #fff;
+}
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+}
+.main-header h1 {
+    font-size: 1.05em;
+    font-weight: 600;
+    margin: 0;
+    color: #1c1c1e;
+    text-align: center;
+    flex-grow: 1;
+}
+.header-icon {
+    font-size: 1.2em;
+    color: #444;
+}
+
+/* Search Section */
+.search-section {
+    padding: 10px 15px;
+    background-color: #fff;
+    border-bottom: 1px solid #f0f0f0;
+}
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #f0f2f5;
+    border-radius: 10px; /* Less rounded than image, but common */
+    padding: 10px 15px;
+    margin-bottom: 15px;
+}
+.search-bar input {
+    flex-grow: 1;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-size: 0.95em;
+    color: #333;
+}
+.search-bar input::placeholder {
+    color: #8e8e93;
+}
+.search-icon {
+    color: #8e8e93;
+    font-size: 0.95em;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 5px; /* Space for scrollbar if it appears */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+.filter-buttons::-webkit-scrollbar { /* WebKit */
+    display: none;
+}
+.filter-btn {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    color: #555;
+    padding: 7px 14px;
+    border-radius: 18px;
+    font-size: 0.85em;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.filter-btn.active {
+    background-color: #e6f5e7; /* Light green from image */
+    color: #34c759; /* Brighter green for text */
+    border-color: #d0e8d2;
+    font-weight: 600;
+}
+
+/* Map */
+#map {
+    height: 320px; /* Adjust as needed */
+    width: 100%;
+    background-color: #2c2c2e; /* Dark map background */
+}
+
+/* Station List */
+.station-list-container {
+    background-color: #fff;
+    padding: 0 18px 15px 18px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    margin-top: -20px; /* Pull up over the map */
+    position: relative;
+    z-index: 10;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+.pull-handle-bar {
+    width: 40px;
+    height: 5px;
+    background-color: #d1d1d6;
+    border-radius: 2.5px;
+    margin: 12px auto;
+}
+.station-list-container h2 {
+    font-size: 1.05em;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #1c1c1e;
+}
+
+#station-list .station-item {
+    display: flex;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+}
+#station-list .station-item:last-child {
+    border-bottom: none;
+}
+.station-info {
+    flex-grow: 1;
+}
+.station-item h3 {
+    font-size: 0.95em;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+    color: #1c1c1e;
+}
+.station-item .details {
+    font-size: 0.8em;
+    color: #636366;
+    margin-bottom: 6px;
+}
+.station-item .prices {
+    font-size: 0.8em;
+}
+.station-item .prices span {
+    margin-right: 10px;
+    text-decoration: underline;
+    color: #888;
+    font-weight: 500;
+}
+.station-item .prices span:last-child {
+    margin-right: 0;
+}
+.station-item .arrow-icon {
+    color: #c7c7cc;
+    font-size: 0.9em;
+    margin-left: 10px;
+}
+#station-list .station-item.highlighted {
+    background-color: #f0fff0; /* Very light green */
+}
+
+/* Custom Leaflet Marker for Charging Stations */
+.station-marker-icon {
+    width: 30px; /* Pin width */
+    height: 42px; /* Pin height */
+    position: relative;
+}
+.station-marker-icon .pin-shape {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 50% 50% 50% 7% / 50% 50% 50% 7%; /* Teardrop shape */
+    transform: rotate(-45deg);
+    position: absolute;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+.station-marker-icon .icon-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg); /* Counter-rotate and center */
+    margin-top: -3px; /* Fine-tune centering of icon on the fatter part */
+}
+.station-marker-icon .fa-charging-station {
+    color: #34c759; /* Green icon */
+    font-size: 16px;
+}
+
+/* Custom Leaflet Marker for User Location */
+.user-location-marker-icon {
+    width: 36px;
+    height: 20px; /* Adjust to aspect ratio of car icon or desired appearance */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.user-location-marker-icon .fa-car {
+    color: #34c759; /* Green car */
+    font-size: 24px; /* Car icon size */
+    filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.5));
+}
