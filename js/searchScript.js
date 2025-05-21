@@ -330,6 +330,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     reserveBtn.addEventListener('click', () => {
+        userBalanceElement = document.querySelector('.user-balance-info span');
+        fee = parseFloat(document.querySelector('.reservation-fee-info span').textContent.replace('€', ''));
+        const userBalance = parseFloat(userBalanceElement.textContent.replace('€', ''));
+        const remainingBalance = Math.max(0, userBalance - fee);
+        userBalanceElement.textContent = `${remainingBalance.toFixed(2)}€`; // Update wallet balance
+
+        
         const stationId = reserveBtn.dataset.stationId;
         const selectedStation = stationData.find(s => s.id === stationId);
         const dateValue = document.getElementById('reservationDate').value;
@@ -384,11 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
             fee += totalMinutes * 0.07; // Add time fee
         }
 
-        const userBalance = parseFloat(userBalanceElement.textContent.replace('€', ''));
-        const remainingBalance = Math.max(0, userBalance - fee);
-
         reservationFeeElement.textContent = `${fee.toFixed(2)}€`; // Update fee display
-        userBalanceElement.textContent = `${remainingBalance.toFixed(2)}€`; // Update wallet balance
     }
 
     // Use MutationObserver to detect changes in the reservationTime element
