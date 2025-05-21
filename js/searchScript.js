@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const stationListElement = document.getElementById('station-list');
     const stationListTitleElement = document.getElementById('station-list-title');
     const filterButtons = document.querySelectorAll('.filter-btn');
-    let currentFilter = 'nearby';
+    let activeFilters = new Set(['nearby']); // Set "nearby" filter as default
     let stationMarkersLayer = L.layerGroup().addTo(map);
 
     // --- DOM Elements for Views ---
@@ -100,6 +100,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Store station ID for reservation button or any other use
         reserveBtn.dataset.stationId = station.id;
+
+        const reservationTagsContainer = document.getElementById('reservationTags');
+        reservationTagsContainer.innerHTML = createStationTags(station); // Populate tags
     }
 
     // --- TIME PICKER LOGIC ---
@@ -198,6 +201,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- TAGS ---
+    function createStationTags(station) {
+        const tags = [];
+
+        if (station.isFastCharge) {
+            tags.push({ name: 'Fast', color: '#34c759' }); // Green
+        }
+        if (station.isPopular) {
+            tags.push({ name: 'Popular', color: '#ff9500' }); // Orange
+        }
+        if (station.isNew) {
+            tags.push({ name: 'New', color: '#007aff' }); // Blue
+        }
+
+        return tags.map(tag => `
+            <span class="station-tag" style="border-color: ${tag.color}; color: ${tag.color};">
+                <span class="tag-dot" style="background-color: ${tag.color};"></span>
+                <span class="tag-name">${tag.name}</span>
+            </span>
+        `).join('');
+    }
+
     // --- RENDER FUNCTIONS ---
     function renderStationList(stationsToRender) {
         stationListElement.innerHTML = '';
@@ -211,6 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="station-info">
                     <h3>${station.name}</h3>
                     <div class="details">${station.distance.toFixed(1)} km away • ${station.available}/${station.totalSpots} Available</div>
+                    <div class="tags">${createStationTags(station)}</div>
                     <div class="prices">
                         ${station.prices.slow ? `<span>${station.prices.slow.toFixed(2)}€ Slow</span>` : ''}
                         ${station.prices.medium ? `<span>${station.prices.medium.toFixed(2)}€ Medium</span>` : ''}
@@ -227,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 document.querySelectorAll('.station-item').forEach(el => el.classList.remove('highlighted'));
                 item.classList.add('highlighted');
-                
+
                 showReservationView(station); // Show reservation panel for this station
             });
             stationListElement.appendChild(item);
@@ -241,14 +267,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 }).addTo(stationMarkersLayer);
 
                 marker.on('click', () => {
-                    // Find the corresponding list item and trigger its click to show reservation panel
                     const listItem = stationListElement.querySelector(`.station-item[data-id="${station.id}"]`);
                     if (listItem) {
-                        listItem.click(); // This will handle map zoom and showing reservation view
-                        // listItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); // Already scrolled if list is visible
-                    } else { // If list item not found (e.g. due to filtering), directly show reservation view
+                        listItem.click();
+                    } else {
                         showReservationView(station);
-                         map.setView([markerLat, markerLng], 16);
+                        map.setView([markerLat, markerLng], 16);
                     }
                 });
             }
@@ -260,33 +284,41 @@ document.addEventListener('DOMContentLoaded', () => {
         showListView(); // Ensure list view is shown when applying filters
         let filteredStations = [...stationData];
 
-        filteredStations.sort((a, b) => a.distance - b.distance);
-
-        if (currentFilter === 'available') {
-            filteredStations = filteredStations.filter(s => s.available > 0);
-            stationListTitleElement.textContent = "Available Stations";
-        } else if (currentFilter === 'fast_charge') {
-            filteredStations = filteredStations.filter(s => s.isFastCharge && s.prices.fast);
-            stationListTitleElement.textContent = "Fast Charge Stations";
-        } else if (currentFilter === 'popular') {
-            filteredStations = filteredStations.filter(s => s.isPopular);
-            filteredStations.sort((a, b) => b.available - a.available || a.distance - b.distance);
-            stationListTitleElement.textContent = "Popular Stations";
-        } else if (currentFilter === 'new') {
-            filteredStations = filteredStations.filter(s => s.isNew);
-            stationListTitleElement.textContent = "New Stations";
-        } else { // 'nearby'
-            stationListTitleElement.textContent = "Nearby Charging Stations";
+        if (activeFilters.size > 0) {
+            filteredStations = filteredStations.filter(station => {
+                let matches = true;
+                if (activeFilters.has('available')) {
+                    matches = matches && station.available > 0;
+                }
+                if (activeFilters.has('fast_charge')) {
+                    matches = matches && station.isFastCharge && station.prices.fast;
+                }
+                if (activeFilters.has('popular')) {
+                    matches = matches && station.isPopular;
+                }
+                if (activeFilters.has('new')) {
+                    matches = matches && station.isNew;
+                }
+                return matches;
+            });
         }
+
+        filteredStations.sort((a, b) => a.distance - b.distance);
+        stationListTitleElement.textContent = activeFilters.size > 0 ? "Filtered Stations" : "Charging Stations";
         renderStationList(filteredStations);
     }
 
     // --- EVENT LISTENERS ---
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            currentFilter = button.dataset.filter;
+            const filter = button.dataset.filter;
+            if (activeFilters.has(filter)) {
+                activeFilters.delete(filter);
+                button.classList.remove('active');
+            } else {
+                activeFilters.add(filter);
+                button.classList.add('active');
+            }
             applyFilters();
         });
     });
@@ -300,22 +332,18 @@ document.addEventListener('DOMContentLoaded', () => {
     reserveBtn.addEventListener('click', () => {
         const stationId = reserveBtn.dataset.stationId;
         const selectedStation = stationData.find(s => s.id === stationId);
-
         const dateValue = document.getElementById('reservationDate').value;
         const timeValue = document.getElementById('reservationTime').textContent;
-
         // Ensure timeValue is formatted as "HH:mm - HH:mm"
         const startTime = timeValue; // Assuming `timeValue` is the start time
         const endTime = new Date(new Date().setHours(...startTime.split(':').map(Number)));
         endTime.setMinutes(endTime.getMinutes());
         const formattedEndTime = `${endTime.getHours().toString().padStart(2, '0')}:${endTime.getMinutes().toString().padStart(2, '0')}`;
         const reservationTime = `${startTime} - ${formattedEndTime}`;
-
         // Calculate total fee
         const reservationRatePerMinute = 0.07; // 0.07€/min
         const durationMinutes = 60; // Default duration is 1 hour (60 minutes)
         const totalFee = durationMinutes * reservationRatePerMinute;
-
         console.log("Reserving station:", stationId, "Date:", dateValue, "Time:", reservationTime, "Total Fee:", totalFee);
 
         let reservationUrl = `reservation.html?stationId=${encodeURIComponent(stationId)}`;
@@ -326,17 +354,14 @@ document.addEventListener('DOMContentLoaded', () => {
         reservationUrl += `&date=${encodeURIComponent(dateValue)}`;
         reservationUrl += `&time=${encodeURIComponent(reservationTime)}`;
         reservationUrl += `&totalFee=${encodeURIComponent(totalFee.toFixed(2))}`; // Pass total fee
-
         window.location.href = reservationUrl;
     });
-    
+
     // Make header icons clickable
     const homeHeaderIcon = document.querySelector('.main-header .fa-home');
     const profileHeaderIcon = document.querySelector('.main-header .fa-user');
-
     if(homeHeaderIcon) homeHeaderIcon.parentElement.addEventListener('click', () => window.location.href = 'index.html');
     if(profileHeaderIcon) profileHeaderIcon.parentElement.addEventListener('click', () => window.location.href = 'profile.html');
-
 
     // --- RESERVATION FEE LOGIC ---
     function updateReservationFee() {
@@ -346,7 +371,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const currentTime = new Date();
         const [currentHour, currentMinute] = [currentTime.getHours(), currentTime.getMinutes()];
-
         const [selectedHour, selectedMinute] = timePickerInput.split(':').map(Number);
 
         // Calculate the total difference in minutes
@@ -378,8 +402,31 @@ document.addEventListener('DOMContentLoaded', () => {
     // Call the function initially to set the default fee
     updateReservationFee();
 
+    // --- TAG SHRINKING LOGIC ---
+    function adjustTagsForSpace() {
+        const stationItems = document.querySelectorAll('.station-item');
+        stationItems.forEach(item => {
+            const tags = item.querySelectorAll('.station-tag');
+            tags.forEach(tag => {
+                if (item.offsetWidth < 300) { // Adjust threshold as needed
+                    tag.classList.add('shrink');
+                } else {
+                    tag.classList.remove('shrink');
+                }
+            });
+        });
+    }
+
+    window.addEventListener('resize', adjustTagsForSpace);
+    document.addEventListener('DOMContentLoaded', adjustTagsForSpace);
+
     // --- INITIAL RENDER ---
     applyFilters();
+    filterButtons.forEach(button => {
+        if (button.dataset.filter === 'nearby') {
+            button.classList.add('active'); // Highlight the "nearby" filter button
+        }
+    });
     showListView(); // Ensure list view is the default
     initializeTimePicker();
 });
