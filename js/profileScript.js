@@ -20,7 +20,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const addFundsBtn = document.querySelector('.add-funds-button');
     if(addFundsBtn) {
         addFundsBtn.addEventListener('click', () => {
-            alert('Add Funds functionality to be implemented.');
+            const amountToAdd = prompt("Enter amount to add:", "10.00");
+            if (amountToAdd !== null && !isNaN(parseFloat(amountToAdd)) && parseFloat(amountToAdd) > 0) {
+                const currentBalance = window.walletManager.getWalletBalance();
+                const newBalance = currentBalance + parseFloat(amountToAdd);
+                window.walletManager.setWalletBalance(newBalance);
+                window.walletManager.updateAllBalanceDisplays();
+                alert('Funds added successfully!');
+            } else if (amountToAdd !== null) {
+                alert('Invalid amount entered.');
+            }
         });
     }
 });

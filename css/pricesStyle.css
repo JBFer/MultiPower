@@ -34,24 +34,29 @@ body {
 .status-icons i { margin-left: 8px; }
 
 /* Page Header */
-.page-header {
+/* Removed .page-header and .page-header .back-button styles */
+
+.app-header {
+    background-color: #fff; /* Match searchStyle.css */
+}
+
+.main-header {
     display: flex;
+    justify-content: center; /* Center title as it's the only element */
     align-items: center;
-    padding: 15px 20px;
-    background-color: #FFF9FF; /* Match page background */
-    /* border-bottom: 1px solid #E0E0E0; */ /* Optional: if you want a line under header */
+    padding: 10px 15px;
+    background-color: #FFF9FF; /* Match status bar background or choose #fff */
 }
-.page-header .back-button {
-    font-size: 24px;
-    color: #333;
-    margin-right: 15px;
-    text-decoration: none;
-}
-.page-header h1 {
-    font-size: 20px;
+
+.main-header h1 {
+    font-size: 1.05em; /* Match searchStyle.css */
+    font-weight: 600; /* Match searchStyle.css */
     margin: 0;
-    font-weight: 600;
+    color: #1c1c1e; /* Match searchStyle.css */
+    text-align: center; /* Ensure text is centered */
+    flex-grow: 1; /* Allow h1 to take space if needed for centering */
 }
+
 
 /* Main Content Area */
 .prices-content {

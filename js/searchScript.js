@@ -327,15 +327,31 @@ document.addEventListener('DOMContentLoaded', () => {
         showListView();
         // Optionally, re-apply filters if needed or just show the list as it was
         // applyFilters(); // If you want to refresh the list based on current filter
+        if (window.walletManager && typeof window.walletManager.updateAllBalanceDisplays === 'function') {
+            window.walletManager.updateAllBalanceDisplays(); // Ensure balance display is current
+        }
     });
 
     reserveBtn.addEventListener('click', () => {
-        userBalanceElement = document.querySelector('.user-balance-info span');
-        fee = parseFloat(document.querySelector('.reservation-fee-info span').textContent.replace('€', ''));
-        const userBalance = parseFloat(userBalanceElement.textContent.replace('€', ''));
-        const remainingBalance = Math.max(0, userBalance - fee);
-        userBalanceElement.textContent = `${remainingBalance.toFixed(2)}€`; // Update wallet balance
-
+        const feeText = document.querySelector('.reservation-fee-info span').textContent;
+        const fee = parseFloat(feeText.replace('€', ''));
+        
+        if (window.walletManager) {
+            const currentBalance = window.walletManager.getWalletBalance();
+            if (currentBalance >= fee) {
+                const newBalance = currentBalance - fee;
+                window.walletManager.setWalletBalance(newBalance);
+                window.walletManager.updateAllBalanceDisplays(); // Update display immediately
+            } else {
+                alert("Insufficient balance to make the reservation.");
+                return; // Stop reservation process
+            }
+        } else {
+            // Fallback or error if walletManager is not available
+            console.error("walletManager not found. Cannot process transaction.");
+            alert("Error processing payment. Please try again.");
+            return;
+        }
         
         const stationId = reserveBtn.dataset.stationId;
         const selectedStation = stationData.find(s => s.id === stationId);
@@ -398,6 +414,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const reservationTimeElement = document.getElementById('reservationTime');
     const observer = new MutationObserver(() => {
         updateReservationFee();
+        // Ensure balance display is also up-to-date if the reservation panel is visible
+        if (reservationView.classList.contains('hidden') === false && window.walletManager && typeof window.walletManager.updateAllBalanceDisplays === 'function') {
+            window.walletManager.updateAllBalanceDisplays();
+        }
     });
 
     observer.observe(reservationTimeElement, { childList: true, characterData: true, subtree: true });
@@ -432,4 +452,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     showListView(); // Ensure list view is the default
     initializeTimePicker();
+    // Initial call to update balance display on search page load, handled by navigation.js
+    // but if specific updates are needed here for the reservation panel when it's first shown:
+    if (window.walletManager && typeof window.walletManager.updateAllBalanceDisplays === 'function') {
+        window.walletManager.updateAllBalanceDisplays();
+    }
 });
