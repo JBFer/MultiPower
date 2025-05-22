@@ -22,7 +22,7 @@ function generateAveragePricesChart() {
     gridLinesContainer.innerHTML = '';
     xAxisTicksContainer.innerHTML = '';
 
-    const tickValues = [0.42, 0.44, 0.46, 0.50, 0.55];
+    const tickValues = [0.40, 0.45, 0.50, 0.55];
     const minTick = Math.min(...tickValues);
     const maxTick = Math.max(...tickValues);
     const tickRange = maxTick - minTick;
