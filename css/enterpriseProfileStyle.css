@@ -1,0 +1,248 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #FFF9FF; /* Light lavender/pinkish background from other pages */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 420px;
+    min-height: 100vh;
+    background-color: #FFF9FF;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 70px; /* Space for bottom navigation bar */
+}
+
+/* Status Bar (Consistent) */
+.status-bar-placeholder {
+    padding: 5px 15px; display: flex; justify-content: space-between; align-items: center;
+    font-size: 14px; color: #000; height: 30px; background-color: #FFF9FF;
+}
+.status-bar-placeholder .time { font-weight: 500; }
+.notch-placeholder {
+    width: 10px; height: 10px; background-color: #000; border-radius: 50%;
+    position: absolute; left: 50%; transform: translateX(-50%); top: 10px;
+}
+.status-icons i { margin-left: 8px; }
+
+/* Page Header (Consistent with prices.html style) */
+.page-header {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #FFF9FF;
+}
+.page-header .back-button {
+    font-size: 24px;
+    color: #333;
+    margin-right: 15px;
+    text-decoration: none;
+}
+.page-header h1 {
+    font-size: 20px;
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Main Content Area */
+.enterprise-profile-content {
+    padding: 0; /* Sections will handle their own padding */
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+/* Banner Section */
+.banner-section {
+    background-image: url('../assets/banner.jpeg'); /* Updated dummy image to local asset */
+    background-size: cover;
+    background-position: center;
+    padding: 15px;
+    margin-bottom: 20px;
+    height: 150px; /* Fixed height for the banner */
+    display: flex; /* To help position profile-intro if needed */
+    flex-direction: column; /* Stack profile-intro below potential banner content */
+    justify-content: flex-end; /* Position profile-intro at the bottom of the banner */
+}
+
+.profile-intro {
+    display: flex;
+    gap: 15px;
+    background-color: rgba(0, 0, 0, 0.0); /* Optional: slight dark overlay for text readability if banner is light */
+    padding: 10px; /* Optional: padding around the profile intro elements */
+    border-radius: 8px; /* Optional: rounded corners for the intro block */
+    margin-top: auto; /* Pushes profile-intro to the bottom if banner-section has extra space */
+}
+
+/* Styles for the new enterprise profile picture image */
+.enterprise-profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Makes the image round */
+    border: 3px solid #fff; /* White border */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+    flex-shrink: 0;
+}
+
+.description-text-placeholder {
+    flex-grow: 1;
+    background-color: #3e3e3ebf; /* Grey for description box */
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.85em;
+    color: #fff;
+    line-height: 1.4;
+    display: flex; /* For centering text if short */
+    align-items: center; /* For centering text if short */
+}
+
+/* Latest News Section */
+.latest-news-section {
+    padding: 0 20px 20px 20px;
+    margin-bottom: 20px;
+}
+.latest-news-section h2 {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin: 0 0 15px 0;
+}
+.news-card {
+    background-color: #FFFFFF; /* White card */
+    border-radius: 10px 10px 0 0; /* Rounded top corners only */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    padding: 15px;
+    display: flex;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+.news-image-placeholder {
+    width: 90px;
+    height: 90px;
+    background-color: #E0E0E0;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9em;
+    color: #777;
+    flex-shrink: 0;
+}
+.news-content {
+    flex-grow: 1;
+}
+.news-content h3 {
+    font-size: 1em;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+}
+.news-content p {
+    font-size: 0.85em;
+    color: #555;
+    line-height: 1.5;
+    margin: 0 0 10px 0;
+}
+.news-author {
+    display: block;
+    text-align: right;
+    font-size: 0.8em;
+    font-style: italic;
+    color: #777;
+}
+.see-more-link {
+    display: block;
+    text-align: right;
+    padding: 10px 15px;
+    background-color: #ececec; /* Grey bar for "see more" */
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9em;
+    border-radius: 0 0 10px 10px; /* Rounded bottom corners */
+    margin: -10px 0 0 0; /* Adjusted: top margin connects with news-card, horizontal margins are 0 */
+    position: relative; /* If news-card has overflow hidden, this needs adjustment */
+}
+.see-more-link i {
+    margin-left: 5px;
+}
+
+/* Prices Section */
+.prices-section {
+    padding: 0 20px 20px 20px;
+}
+.prices-section h2 {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin: 0 0 15px 0; /* Reset top margin, add bottom */
+}
+
+.time-filter-buttons-prices {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px; /* Space before "Prices" title */
+}
+.time-filter-btn { /* Copied from pricesStyle.css for consistency, adjust if needed */
+    padding: 8px 18px; /* Slightly smaller than prices.html ones */
+    border: 1px solid #D0D0D0;
+    background-color: #FFFFFF;
+    color: #555;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.time-filter-btn:hover {
+    background-color: #f0f0f0;
+}
+.time-filter-btn.active {
+    background-color: #E6F2E6;
+    color: #006400;
+    border-color: #A8D8A8;
+}
+
+.price-chart-container {
+    background-color: #FFFFFF; /* White background for chart area */
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    text-align: center; /* Center the image if it's smaller */
+}
+.price-chart-container img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Remove extra space below image */
+    margin: 0 auto; /* Center image */
+}
+.chart-axes-labels {
+    margin-top: 5px; /* Changed from -25px to ensure x-axis labels are below the chart */
+    position: relative; /* For positioning y-axis label */
+    font-size: 0.75em;
+    color: #777;
+}
+.y-axis-label-ep {
+    position: absolute;
+    left: -10px; /* Adjust to align with image's y-axis */
+    top: -30px; /* Adjusted from 0 to compensate for parent's margin-top change (25px shift + 5px new margin) */
+    transform: translateY(-100%) rotate(-90deg); /* Rotate and position */
+    transform-origin: left bottom;
+    white-space: nowrap;
+}
+.x-axis-days {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 5px; /* Space above day labels */
+    margin: 0 -5px; /* Slight negative margin to align with typical chart ticks */
+}
+.x-axis-days span {
+    text-align: center;
+    flex: 1;
+    line-height: 1.2;
+}

@@ -5,30 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Enterprise Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css"> <!-- General styles -->
-    <link rel="stylesheet" href="css/navigation.css">
-    <style>
-        .app-container { padding-bottom: 70px; /* Space for bottom nav */ }
-        .page-header {
-            display: flex;
-            align-items: center;
-            padding: 15px 20px;
-            background-color: #FFF9FF;
-            border-bottom: 1px solid #eee;
-        }
-        .page-header .back-button {
-            font-size: 24px;
-            color: #333;
-            margin-right: 15px;
-            text-decoration: none;
-        }
-        .page-header h1 {
-            font-size: 20px;
-            margin: 0;
-            font-weight: 600;
-        }
-        .main-content { text-align: center; padding: 20px; }
-    </style>
+    <link rel="stylesheet" href="css/enterpriseProfileStyle.css">
+    <link rel="stylesheet" href="css/navigation.css"> <!-- For the bottom navigation bar -->
 </head>
 <body>
     <div class="app-container">
@@ -43,31 +21,69 @@
             </div>
         </div>
 
+        <!-- Page Header (Consistent with prices.html style) -->
         <header class="page-header">
             <a href="javascript:history.back()" class="back-button"><i class="fas fa-arrow-left"></i></a>
-            <h1 id="enterpriseNameTitle">Enterprise Profile</h1>
+            <h1 id="enterpriseNameHeader">Enterprise Name</h1>
         </header>
 
-        <main class="main-content">
-            <h2 id="enterpriseDetailName">Details for [Enterprise Name]</h2>
-            <p>Statistics, locations, and more about this enterprise will be displayed here.</p>
-            <!-- Placeholder for actual content -->
-            <div style="margin-top: 20px; padding: 15px; background-color: #f0f0f0; border-radius: 8px;">
-                <h4>Price Statistics</h4>
-                <p>Average Price: €0.XX/kWh</p>
-                <p>Peak Price: €0.YY/kWh</p>
-                <p>Off-Peak Price: €0.ZZ/kWh</p>
-            </div>
-            <div style="margin-top: 20px; padding: 15px; background-color: #f0f0f0; border-radius: 8px;">
-                <h4>Locations</h4>
-                <p>Number of stations: NNN</p>
-                <p>Coverage: Regional / National</p>
-            </div>
+        <!-- Main Content -->
+        <main class="enterprise-profile-content">
+            <section class="banner-section">
+                <div class="profile-intro">
+                    <img src="./assets/entProfile.png" alt="Enterprise Profile Picture" class="enterprise-profile-picture">
+                    <div class="description-text-placeholder">
+                        <span>Description Text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="latest-news-section">
+                <h2>Latest news</h2>
+                <div class="news-card">
+                    <div class="news-image-placeholder">
+                        <span>Image</span>
+                    </div>
+                    <div class="news-content">
+                        <h3 id="newsTitle">Title of the new</h3>
+                        <p id="newsSnippet">Dummy text saying something about this enterprise, focusing on recent achievements or updates.</p>
+                        <span class="news-author" id="newsAuthor">Author</span>
+                    </div>
+                </div>
+                <a href="#" id="seeMoreNewsLink" class="see-more-link">
+                    See more <i class="fas fa-arrow-right"></i>
+                </a>
+            </section>
+
+            <section class="prices-section">
+                <h2>Price Variation</h2>
+                <div class="time-filter-buttons-prices">
+                    <button class="time-filter-btn active" data-filter="this-week">This Week</button>
+                    <button class="time-filter-btn" data-filter="last-week">Last Week</button>
+                    <!-- Add more filters if needed -->
+                </div>
+                <div class="price-chart-container">
+                    <!-- Placeholder for price chart image or canvas -->
+                    <img src="./assets/chart3.png" alt="Price chart for the enterprise">
+                    <div class="chart-axes-labels">
+                        <span class="y-axis-label-ep">€/Kwh</span>
+                        <div class="x-axis-days">
+                            <span>Mon<br>day</span>
+                            <span>Tues<br>day</span>
+                            <span>Wednes<br>day</span>
+                            <span>Thurs<br>day</span>
+                            <span>Fri<br>day</span>
+                            <span>Satur<br>day</span>
+                            <span>Sun<br>day</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
 
         <!-- Reusable Bottom Navigation Bar -->
         <nav class="bottom-nav">
-            <a href="mainMenu.html" class="nav-item">
+            <a href="index.html" class="nav-item">
                 <i class="fas fa-home"></i>
                 <span>Home</span>
             </a>
@@ -75,7 +91,7 @@
                 <i class="fas fa-search"></i>
                 <span>Search</span>
             </a>
-            <a href="prices.html" class="nav-item"> <!-- Potentially mark active if desired, but this is a sub-page -->
+            <a href="prices.html" class="nav-item active"> <!-- Assuming this is accessed from prices page -->
                 <i class="fas fa-tags"></i>
                 <span>Prices</span>
             </a>
@@ -89,14 +105,7 @@
             </a>
         </nav>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const params = new URLSearchParams(window.location.search);
-            const enterpriseName = params.get('name') || 'Selected Enterprise';
-            document.getElementById('enterpriseNameTitle').textContent = enterpriseName + " Profile";
-            document.getElementById('enterpriseDetailName').textContent = "Details for " + enterpriseName;
-        });
-    </script>
+    <script src="js/enterpriseProfileScript.js"></script>
     <script src="js/navigation.js"></script>
 </body>
 </html>

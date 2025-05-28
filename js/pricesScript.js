@@ -19,22 +19,23 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // --- Populate Enterprise Grid ---
-    const enterprises = [
-        { name: "Enterprise A", id: "A" },
-        { name: "Enterprise B", id: "B" },
-        { name: "Enterprise C", id: "C" },
-        { name: "Enterprise D", id: "D" },
-        { name: "Enterprise E", id: "E" },
-        { name: "Enterprise F", id: "F" },
-        { name: "Enterprise G", id: "G" },
-        { name: "Enterprise H", id: "H" }
+    const enterprises = [ // Ensure IDs are unique and meaningful if possible
+        { name: "Enterprise A", id: "enterprise_a_001" },
+        { name: "Enterprise B", id: "enterprise_b_002" },
+        { name: "Enterprise C", id: "enterprise_c_003" },
+        { name: "Enterprise D", id: "enterprise_d_004" },
+        { name: "Enterprise E", id: "enterprise_e_005" },
+        { name: "Enterprise F", id: "enterprise_f_006" },
+        { name: "Enterprise G", id: "enterprise_g_007" },
+        { name: "Enterprise H", id: "enterprise_h_008" }
     ];
 
     function renderEnterprises() {
         enterpriseGrid.innerHTML = ''; // Clear existing
         enterprises.forEach(enterprise => {
             const cardLink = document.createElement('a');
-            cardLink.href = `enterpriseProfile.html?name=${encodeURIComponent(enterprise.name)}`;
+            // Pass both name and id
+            cardLink.href = `enterpriseProfile.html?name=${encodeURIComponent(enterprise.name)}&id=${encodeURIComponent(enterprise.id)}`;
             cardLink.classList.add('enterprise-card');
 
             const nameSpan = document.createElement('span');
