@@ -3,14 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>News</title>
+    <title>News Feed</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css"> <!-- Or a specific newsStyle.css -->
-    <link rel="stylesheet" href="css/navigation.css"> <!-- CSS for the new bottom navigation -->
-    <style>
-        .app-container { padding-bottom: 70px; /* Space for bottom nav */ }
-        .main-content { text-align: center; padding-top: 50px; }
-    </style>
+    <link rel="stylesheet" href="css/newsStyle.css">
+    <link rel="stylesheet" href="css/navigation.css"> <!-- For the bottom navigation bar -->
 </head>
 <body>
     <div class="app-container">
@@ -25,18 +21,38 @@
             </div>
         </div>
 
-         <header class="page-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px;">
-            <a href="index.html" style="color: #333; font-size: 24px;"><i class="fas fa-arrow-left"></i></a>
-            <h1 style="font-size: 20px; margin: 0; text-align: center; flex-grow: 1;">News & Updates</h1>
-            <div style="width: 24px;"></div> <!-- Spacer -->
+        <!-- Page Header (Consistent with search.html style) -->
+        <header class="app-header-news">
+            <div class="main-header-news">
+                <!-- No back button, but could add one if this is a sub-page of something else -->
+                <!-- <a href="index.html" class="header-icon-link"><i class="fas fa-home header-icon"></i></a> -->
+                <h1>News Feed</h1>
+                <!-- <a href="profile.html" class="header-icon-link"><i class="fas fa-user header-icon"></i></a> -->
+            </div>
         </header>
-        <hr class="header-divider" style="margin: 0 20px;">
 
+        <!-- Search and Filter Section -->
+        <div class="search-filter-section-news">
+            <div class="search-bar-news">
+                <input type="text" id="newsSearchInput" placeholder="Search news...">
+                <i class="fas fa-search search-icon-news"></i>
+            </div>
+            <div class="topic-filter-buttons-news">
+                <button class="topic-filter-btn active" data-topic="all">All</button>
+                <button class="topic-filter-btn" data-topic="topic1">Topic 1</button>
+                <button class="topic-filter-btn" data-topic="topic2">Topic 2</button>
+                <button class="topic-filter-btn" data-topic="topic3">Topic 3</button>
+                <button class="topic-filter-btn" data-topic="topic4">Topic 4</button>
+                <button class="topic-filter-btn" data-topic="topic5">Topic 5</button>
+                <button class="topic-filter-btn" data-topic="topic6">Topic 6</button>
+            </div>
+        </div>
 
-        <main class="main-content">
-            <h2>Latest News & Articles</h2>
-            <p>News content will appear here.</p>
-            <!-- Add news article cards later -->
+        <!-- News Articles List -->
+        <main class="news-feed-content">
+            <div id="news-articles-list">
+                <!-- News articles will be injected here by JavaScript -->
+            </div>
         </main>
 
         <!-- Reusable Bottom Navigation Bar -->
@@ -63,6 +79,7 @@
             </a>
         </nav>
     </div>
+    <script src="js/newsScript.js"></script>
     <script src="js/navigation.js"></script>
 </body>
 </html>

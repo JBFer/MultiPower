@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: #FFF9FF; /* Light lavender/pinkish background from other pages */
+    background-color: #e0e0e0; /* Updated to match indexStyle.css */
     color: #333;
     display: flex;
     justify-content: center;
