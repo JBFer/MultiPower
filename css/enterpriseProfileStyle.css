@@ -13,7 +13,7 @@ body {
     width: 100%;
     max-width: 420px;
     min-height: 100vh;
-    background-color: #FFF9FF;
+    background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
@@ -24,7 +24,7 @@ body {
 /* Status Bar (Consistent) */
 .status-bar-placeholder {
     padding: 5px 15px; display: flex; justify-content: space-between; align-items: center;
-    font-size: 14px; color: #000; height: 30px; background-color: #FFF9FF;
+    font-size: 14px; color: #000; height: 30px; background-color: #ffffff;
 }
 .status-bar-placeholder .time { font-weight: 500; }
 .notch-placeholder {
@@ -38,7 +38,7 @@ body {
     display: flex;
     align-items: center;
     padding: 15px 20px;
-    background-color: #FFF9FF;
+    background-color: #ffffff;
 }
 .page-header .back-button {
     font-size: 24px;
@@ -117,7 +117,7 @@ body {
 .news-card {
     background-color: #FFFFFF; /* White card */
     border-radius: 10px 10px 0 0; /* Rounded top corners only */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.33);
     padding: 15px;
     display: flex;
     gap: 15px;
@@ -160,11 +160,12 @@ body {
     display: block;
     text-align: right;
     padding: 10px 15px;
-    background-color: #ececec; /* Grey bar for "see more" */
+    background-color: #efefef; /* Grey bar for "see more" */
     color: #333;
     text-decoration: none;
     font-weight: 500;
     font-size: 0.9em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.33);
     border-radius: 0 0 10px 10px; /* Rounded bottom corners */
     margin: -10px 0 0 0; /* Adjusted: top margin connects with news-card, horizontal margins are 0 */
     position: relative; /* If news-card has overflow hidden, this needs adjustment */

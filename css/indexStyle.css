@@ -25,7 +25,7 @@ body {
 
 /* Status Bar */
 .status-bar-placeholder {
-    background-color: #FFF9FF; /* Match pricesStyle.css */
+    background-color: #ffffff; /* Match pricesStyle.css */
     color: #000; /* Match pricesStyle.css */
     padding: 5px 15px;
     display: flex;
