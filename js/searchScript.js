@@ -86,10 +86,14 @@ document.addEventListener('DOMContentLoaded', () => {
         reservationStationName.textContent = station.name;
         reservationStationAddress.textContent = station.address;
         spotsAvailableElement.textContent = `${station.available}/${station.totalSpots}`;
+        
+        reserveBtn.disabled = false; // Ensure the button is always enabled when this view is shown
+
         if (station.available > 0) {
             availabilityDot.style.backgroundColor = '#34c759'; // Green
         } else {
-            availabilityDot.style.backgroundColor = '#ff3b30'; // Red (or grey)
+            availabilityDot.style.backgroundColor = '#ff3b30'; // Red (or grey for consistency)
+            // Alert removed from here
         }
         // Set default date/time (can be dynamic later)
         const currentTime = new Date();
@@ -333,6 +337,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     reserveBtn.addEventListener('click', () => {
+        const stationId = reserveBtn.dataset.stationId;
+        const selectedStation = stationData.find(s => s.id === stationId);
+
+        // Check if the station is available before proceeding
+        if (selectedStation && selectedStation.available <= 0) {
+            alert("No charging docks currently available at this station.");
+            return; // Stop reservation process
+        }
+
         const feeText = document.querySelector('.reservation-fee-info span').textContent;
         const fee = parseFloat(feeText.replace('€', ''));
         
@@ -353,8 +366,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        const stationId = reserveBtn.dataset.stationId;
-        const selectedStation = stationData.find(s => s.id === stationId);
         const dateValue = document.getElementById('reservationDate').value;
         const timeValue = document.getElementById('reservationTime').textContent;
         // Ensure timeValue is formatted as "HH:mm - HH:mm"
