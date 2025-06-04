@@ -67,8 +67,8 @@ function loadReservationHistory() {
                     <span class="value">${formattedReservationMadeTime}</span>
                 </div>
                 <div class="detail-item">
-                    <span class="label">Interval:</span>
-                    <span class="value">${reservation.reservationDate}, ${reservation.reservationTimeInterval}</span>
+                    <span class="label">Time interval:</span>
+                    <span class="value">${reservation.reservationTimeInterval}</span>
                 </div>
                 <div class="detail-item">
                     <span class="label">Rate:</span>
