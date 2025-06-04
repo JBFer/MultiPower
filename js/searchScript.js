@@ -380,6 +380,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const totalFee = durationMinutes * reservationRatePerMinute;
         console.log("Reserving station:", stationId, "Date:", dateValue, "Time:", reservationTime, "Total Fee:", totalFee);
 
+        // Store reservation details in localStorage
+        if (selectedStation) {
+            const reservationDetails = {
+                id: Date.now(),
+                stationId: selectedStation.id,
+                stationName: selectedStation.name,
+                stationAddress: selectedStation.address,
+                reservationDate: dateValue,
+                reservationTimeInterval: reservationTime,
+                reservationMadeTimestamp: new Date().toISOString(),
+                totalFee: totalFee.toFixed(2),
+                reservationRate: reservationRatePerMinute.toFixed(2)
+            };
+
+            let history = JSON.parse(localStorage.getItem('reservationHistory')) || [];
+            history.unshift(reservationDetails); // Add new reservation to the beginning
+            localStorage.setItem('reservationHistory', JSON.stringify(history));
+        }
+
+
         let reservationUrl = `reservation.html?stationId=${encodeURIComponent(stationId)}`;
         if (selectedStation) {
             reservationUrl += `&stationName=${encodeURIComponent(selectedStation.name)}`;

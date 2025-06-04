@@ -209,3 +209,75 @@ body {
 .car-action-button:hover {
     background-color: #e5e5e5;
 }
+
+/* Reservation History Section */
+.reservation-history-section {
+    margin-bottom: 25px;
+}
+
+.reservation-history-section h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+#reservationHistoryList .reservation-history-item {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    border: 1px solid #f0f0f0;
+}
+
+.reservation-history-item h4 {
+    font-size: 1em;
+    font-weight: 600;
+    color: #1c1c1e;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.reservation-history-item .location {
+    font-size: 0.85em;
+    color: #636366;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.reservation-history-item .location i {
+    margin-right: 6px;
+    color: #888;
+}
+
+.reservation-history-item .details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid */
+    gap: 8px;
+    font-size: 0.8em;
+}
+
+.reservation-history-item .detail-item {
+    display: flex;
+    flex-direction: column; /* Stack label and value */
+}
+
+.reservation-history-item .detail-item .label {
+    color: #777;
+    margin-bottom: 2px;
+    font-weight: 500;
+}
+
+.reservation-history-item .detail-item .value {
+    color: #333;
+    font-weight: normal;
+}
+
+#reservationHistoryList .no-history-message {
+    text-align: center;
+    color: #777;
+    padding: 20px;
+    font-size: 0.9em;
+}
