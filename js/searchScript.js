@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const reservationStationAddress = document.getElementById('reservationStationAddress');
     const spotsAvailableElement = document.getElementById('spotsAvailable');
     const availabilityDot = reservationView.querySelector('.availability-dot');
-    // const reservationDateInput = document.getElementById('reservationDate'); // Already defined in HTML
+    const reservationDateInput = document.getElementById('reservationDate'); // Defined here
     // const reservationTimeDisplay = document.getElementById('reservationTime'); // Already defined in HTML
 
 
@@ -96,6 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Alert removed from here
         }
         // Set default date/time (can be dynamic later)
+        const today = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        reservationDateInput.value = today.toLocaleDateString('en-US', options); // Set today's date
+
         const currentTime = new Date();
         const currentHour = currentTime.getHours();
         const currentMinute = currentTime.getMinutes();
